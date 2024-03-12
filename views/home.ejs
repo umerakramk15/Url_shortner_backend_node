@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(202, 148, 46, 0.61);
+        color: white;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        text-align: center;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+      body h1 {
+        font-size: 80px;
+      }
+      .form-container {
+        padding-top: 10px;
+        padding: 20px 10px;
+        border: none;
+        outline: none;
+        margin-top: 30px;
+        border-radius: 60px;
+        background-color: white;
+      }
+      .form-container input {
+        border: none;
+        outline: none;
+        font-size: 25px;
+        margin: 20px 20px;
+        padding: 10px;
+      }
+      .form-container button {
+        width: auto;
+        height: auto;
+        font-size: 25px;
+        border: none;
+        background-color: white;
+        color: rgb(250, 143, 67);
+        padding: 20px 30px;
+        border-radius: 30px;
+      }
+      .form-container button:hover {
+        background-color: rgb(250, 143, 67);
+        color: white;
+        transition: 0.5s;
+        cursor: pointer;
+      }
+      .tabel {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 80px;
+        background-color: white;
+        padding: 30px;
+      }
+      .tabel table {
+        width: 80%;
+        font-size: 20px;
+      }
+      .tabel .green {
+        color: rgb(1, 138, 1);
+      }
+      .black {
+        color: rgba(0, 0, 0, 0.589);
+      }
+    </style>
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Url Shortner</h1>
+    <% if (locals.id) { %>
+    <p>URL Generated : http://localhost:8001/url/ <%=id %></p>
+    <% } %>
+    <div class="form-container">
+      <form method="POST" action="/url">
+        <input type="text" name="url" placeholder="https://example.com" />
+        <button type="submit">Generate</button>
+      </form>
+    </div>
+
+    <div class="tabel">
+      <% if (locals.urls) { %>
+      <table>
+        <thead>
+          <th class="black">S.NO</th>
+          <th class="green">ShortId</th>
+          <th class="black" >Url</th>
+          <th class="green">No:Clicks</th>
+        </thead>
+        <tbody>
+          <% urls.forEach((url,index) => { %>
+          <tr>
+            <td class="black"><%= index + 1 %></td>
+            <td class="green"><%= url.shortId%></td>
+            <td class="black"><%= url.redirectUrl%></td>
+            <td class="green"><%= url.visitHistory.length %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+        <% } %>
+      </table>
+    </div>
+  </body>
+</html>
